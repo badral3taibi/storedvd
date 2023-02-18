@@ -1,0 +1,47 @@
+{% extends 'index.html' %}
+{% block title %}<title>Search: {{ q }}</title>{% endblock %}
+{% block description %}<meta name="description" content="Search: {{ q }}." />{% endblock %}
+{% block keywords %}
+<meta name="keywords" content="Search, {{ q|lower }}" />
+{% endblock %}
+{% block header %}<h3>Search</h3>{% endblock %}
+{% block sort %}{% endblock %}
+{% block before_content %}
+    <div id="search_result">
+        <h2>searching results : {{ q }}</h2>
+        {% if not products %}
+           <p>Nothing found</p>
+        {% endif %}
+    </div>
+{% endblock %}
+{% block main_header %}
+    {% if products %}
+        {{ block.super }}
+    {% endif %}
+{% endblock %}
+
+{% block pagination %}
+    {% if products.has_other_pages %}
+        <ul class="pagination">
+            {% if products.has_previous %}
+                <li><a href="{{ request.path }}?q={{ q }}&amp;page={{ products.previous_page_number }}">Back</a></li>
+            {% else %}
+                <li>Back</li>
+            {% endif %}
+            {% for i in products.paginator.page_range %}
+                {% if products.number == i %}
+                    <li class="current">{{ i }}</li>
+                {% else %}
+                    <li class="current">
+                        <a href="{{ request.path }}?q={{ q }}&amp;page={{ i }}">{{ i }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+            {% if products.has_next %}
+                <li><a href="{{ request.path }}?q={{ q }}&amp;page={{ products.next_page_number }}">Forward</a></li>
+            {% else %}
+                <li>Forward</li>
+            {% endif %}
+        </ul>
+    {% endif %}
+{% endblock %}

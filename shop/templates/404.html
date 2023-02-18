@@ -1,0 +1,12 @@
+{% extends 'main.html' %}
+{% block title %}<title>Страница не найдена - 404</title>{% endblock %}
+{% block description %}<meta name="description" content="The requested page does not exist." />{% endblock %}
+{% block keywords %}
+<meta name="keywords" content="page not found, page does not exist, 404" />
+{% endblock %}
+{% block content %}
+<div id="message">
+    <h2>Page does not exist</h2>
+    <p>You may have made a mistake when entering the address .<br />Back to<a href="{% url 'index' %}">home</a>.</p>
+</div>
+{% endblock %}

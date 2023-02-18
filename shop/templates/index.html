@@ -1,0 +1,41 @@
+{% extends 'main.html' %}
+{% block title %}<title>Online store storedvd.sa</title>{% endblock %}
+{% block content %}
+<table>
+    {% block main_header %}
+        <tr>
+            <td rowspan="2">
+                <div class="header">
+                    {% block header %}<h3>Catalog</h3>{% endblock %}
+                </div>
+            </td>
+            <td class="section_bg"></td>
+            <td class="section_right"></td>
+        </tr>
+    {% endblock %}
+    <tr>
+        <td colspan="2">
+            {% block sort %}
+                <table class="sort">
+                    <tr>
+                        <td>Сортировать по:</td>
+                        <td>price (<a href="{{ request.path }}?sort=price&amp;up=1">age.</a> | <a href="{{ request.path }}?sort=price&amp;up=0">descending .</a>)
+                        <td>title (<a href="{{ request.path }}?sort=title&amp;up=1">age.</a> | <a href="{{ request.path }}?sort=title&amp;up=0">descending.</a>)
+                    </tr>
+                </table>
+            {% endblock %}
+        </td>
+    </tr>
+</table>
+<table class="products">
+    {% for product in products %}
+        {% cycle '<tr>' '' '' '' %}
+        {% include 'product.html' %}
+        {% if forloop.last %}
+            </tr>
+        {% else %}
+            {% cycle '' '' '' '</tr>' %}
+        {% endif %}
+    {% endfor %}
+</table>
+{% endblock %}-
